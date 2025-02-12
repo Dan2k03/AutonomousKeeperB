@@ -20,6 +20,7 @@ while True:
     # Capture a frame from the camera
     frame_array = picam2.capture_array("main")
 
+    # Convert RGB to BGR
     frame_array = cv2.cvtColor(frame_array, cv2.COLOR_RGB2BGR)
 
     # Display the frame using OpenCV
