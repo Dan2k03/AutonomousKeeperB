@@ -23,7 +23,7 @@ ser.reset_input_buffer()
 
 
 def detect_orange_ball(image):
-    
+    leftpos = "70"
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
     # Refined dark orange HSV range
