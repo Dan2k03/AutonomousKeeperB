@@ -2,6 +2,17 @@ import cv2
 import numpy as np
 from picamera2 import Picamera2
 import serial
+import time
+
+ser = serial.Serial(
+    port='/dev/serial0',  # Use '/dev/ttyS0' or '/dev/serial0' for Raspberry Pi 3
+    baudrate=9600,
+    timeout=30
+)
+
+def send_string(data):
+    ser.write(data.encode())  # Convert string to bytes and send
+    print(f"Sent: {data}")
 
 #from time import sleep
 # Identify the camera index (optional, modify if needed)
@@ -67,6 +78,13 @@ def detect_orange_ball(image):
             else:
                 rightpos = ("Center")
             print(f"{leftpos}, {rightpos}")
+            try:
+                send_string(f"{leftpos}, {rightpos}")
+                time.sleep(1)  # Give time for transmission
+            except Exception as e:
+                print(f"Error: {e}")
+            finally:
+                ser.close()  # Close the serial connection
     return image
 
 
