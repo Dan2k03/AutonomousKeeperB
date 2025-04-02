@@ -83,8 +83,7 @@ def detect_orange_ball(image):
                 time.sleep(1)  # Give time for transmission
             except Exception as e:
                 print(f"Error: {e}")
-            finally:
-                ser.close()  # Close the serial connection
+            
     return image
 
 
