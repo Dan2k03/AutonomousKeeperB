@@ -5,7 +5,7 @@ import serial
 import time
 
 ser = serial.Serial(
-    port='/dev/serial0',  # Use '/dev/ttyS0' or '/dev/serial0' for Raspberry Pi 3
+    port='/dev/ttyS0',  # Use '/dev/ttyS0' or '/dev/serial0' for Raspberry Pi 3
     baudrate=9600,
     timeout=30
 )
