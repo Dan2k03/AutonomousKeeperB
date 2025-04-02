@@ -53,16 +53,16 @@ def detect_orange_ball(image):
             cv2.circle(image, (int(x), int(y)), int(radius), (0, 255, 255), 2)
             cv2.circle(image, center, 5, (0, 0, 255), -1)
             print(f"X: {x}, Y: {y}")
-            if (x < 300):
+            if (x < 250):
                 leftpos = ("Left")
-            elif (x > 300):
+            elif (x > 350):
                 leftpos = ("Right")
             else:
                 leftpos = ("Center")
 
-            if (y < 200):
+            if (y < 150):
                 rightpos = ("Top")
-            elif (y > 200):
+            elif (y > 250):
                 rightpos = ("Bottom")
             else:
                 rightpos = ("Center")
