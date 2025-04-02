@@ -80,7 +80,7 @@ def detect_orange_ball(image):
             print(f"{leftpos}, {rightpos}")
             try:
                 send_string(f"{leftpos}, {rightpos}")
-                time.sleep(1)  # Give time for transmission
+                #time.sleep(1)  # Give time for transmission
             except Exception as e:
                 print(f"Error: {e}")
             
