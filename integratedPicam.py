@@ -3,6 +3,7 @@ import numpy as np
 from picamera2 import Picamera2
 import serial
 import time
+import serial.tools.list_ports
 
 ser = serial.Serial('/dev/tty/ACM0', 9600)
 
@@ -85,6 +86,10 @@ def detect_orange_ball(image):
     return image
 
 
+# print available ports
+ports = serial.tools.list_ports.comports()
+for port in ports:
+    print(port.device)
 
 while True:
     # Capture a frame from the camera
