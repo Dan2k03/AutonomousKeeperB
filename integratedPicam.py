@@ -4,15 +4,13 @@ from picamera2 import Picamera2
 import serial
 import time
 
-ser = serial.Serial(
-    port='/dev/ttyS0',  # Use '/dev/ttyS0' or '/dev/serial0' for Raspberry Pi 3
-    baudrate=9600,
-    timeout=30
-)
+ser = serial.Serial('/dev/tty/ACM0', 9600)
 
-def send_string(data):
-    ser.write(data.encode())  # Convert string to bytes and send
-    print(f"Sent: {data}")
+def send_angle(angle):
+    if ser.is_open:
+        ser.write(f"{angle}\n".encode())  # Send angle followed by newline
+        print(f"Sent angle: {angle}")
+
 
 #from time import sleep
 # Identify the camera index (optional, modify if needed)
@@ -65,21 +63,21 @@ def detect_orange_ball(image):
             cv2.circle(image, center, 5, (0, 0, 255), -1)
             print(f"X: {x}, Y: {y}")
             if (x < 250):
-                leftpos = ("Left")
+                leftpos = 0
             elif (x > 350):
-                leftpos = ("Right")
+                leftpos = 90
             else:
-                leftpos = ("Center")
+                leftpos = 180
 
-            if (y < 150):
-                rightpos = ("Top")
-            elif (y > 250):
-                rightpos = ("Bottom")
-            else:
-                rightpos = ("Center")
-            print(f"{leftpos}, {rightpos}")
+            # if (y < 150):
+            #     rightpos = ("Top")
+            # elif (y > 250):
+            #     rightpos = ("Bottom")
+            # else:
+            #     rightpos = ("Center")
+            print(leftpos)
             try:
-                send_string(f"{leftpos}, {rightpos}")
+                send_angle(leftpos)
                 #time.sleep(1)  # Give time for transmission
             except Exception as e:
                 print(f"Error: {e}")
