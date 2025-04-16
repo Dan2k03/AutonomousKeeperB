@@ -72,13 +72,13 @@ def detect_orange_ball(image):
             elif (x > 350 and y < 150):
                 # right top
                 xpos = 135
-            elif(c > 350 and y > 250):
+            elif(x > 350 and y > 250):
                 # right bottom
                 xpos = 45
             
             else: # Center 
                 xpos = 90
-                
+
             try:
                 send_angle(xpos)
                 
