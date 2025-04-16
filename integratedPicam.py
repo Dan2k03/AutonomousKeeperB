@@ -81,7 +81,7 @@ def detect_orange_ball(image):
 
             # try:
 
-            #send_angle(xpos)
+            send_angle(xpos)
                 
                 #time.sleep(1)  # Give time for transmission
             # except Exception as e:
@@ -105,11 +105,12 @@ while True:
     result_image = detect_orange_ball(frame_array)
 
     cv2.imshow('Ball', result_image)
-    send_angle(xpos)
+
+    # send_angle(xpos)
     time.sleep(0.01)
     # Check for user input to quit
-    # if cv2.waitKey(1) & 0xFF == ord('q'):
-    #     break
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
 # Stop the camera and close windows
 picam2.stop()
