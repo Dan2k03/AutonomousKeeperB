@@ -27,7 +27,7 @@ if arduino_alt.is_open:
     arduino_alt.write(byte_angle)
     print(f"Sent angle to Arduino Alt: {angle}")
 
-
+time.sleep(3)
 angle = 90
 num_bytes = (angle.bit_length() + 7) // 8
 
