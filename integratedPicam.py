@@ -28,7 +28,7 @@ picam2.start()
 
 #picam2.configure(config)
 #picam2.start()
-
+xpos = 90
 
 
 def detect_orange_ball(image):
@@ -79,20 +79,21 @@ def detect_orange_ball(image):
             else: # Center 
                 xpos = 90
 
-            try:
-                send_angle(xpos)
+            # try:
+            
+            #send_angle(xpos)
                 
                 #time.sleep(1)  # Give time for transmission
-            except Exception as e:
-                print(f"Error: {e}")
+            # except Exception as e:
+            #     print(f"Error: {e}")
             
     return image
 
 
 # print available ports
-ports = serial.tools.list_ports.comports()
-for port in ports:
-    print(port.device)
+# ports = serial.tools.list_ports.comports()
+# for port in ports:
+#     print(port.device)
 
 while True:
     # Capture a frame from the camera
@@ -103,11 +104,11 @@ while True:
 
     result_image = detect_orange_ball(frame_array)
 
-    cv2.imshow('Live Orange Ball Detection', result_image)
-
+    cv2.imshow('Ball', result_image)
+    send_angle(xpos)
     # Check for user input to quit
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+    # if cv2.waitKey(1) & 0xFF == ord('q'):
+    #     break
 
 # Stop the camera and close windows
 picam2.stop()
