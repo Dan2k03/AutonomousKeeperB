@@ -5,7 +5,7 @@ import serial
 import time
 import serial.tools.list_ports
 
-ser = serial.Serial('/dev/tty/ACM0', 115200)
+ser = serial.Serial('/dev/ttyACM0', 115200)
 
 def send_angle(angle):
     if ser.is_open:
