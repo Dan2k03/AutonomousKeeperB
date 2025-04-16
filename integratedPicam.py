@@ -20,7 +20,7 @@ camera_index = 0  # Assuming the camera is at index 0
 # Initialize the PiCamera2 object
 picam2 = Picamera2()
 # Configure the camera for preview
-preview_config = picam2.create_preview_configuration()
+preview_config = picam2.create_preview_configuration(main={"format": "BGR888", "size": (320, 240)})
 # INSIDE LAST LINE FUNCTION: main={"format": "RGB888", "size": (640, 480)}
 #picam2.start_preview(Preview.QTGL)
 picam2.configure(preview_config)
