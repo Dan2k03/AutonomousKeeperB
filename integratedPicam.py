@@ -62,7 +62,7 @@ def detect_orange_ball(image):
         if radius > 10:
             cv2.circle(image, (int(x), int(y)), int(radius), (0, 255, 255), 2)
             cv2.circle(image, center, 5, (0, 0, 255), -1)
-            print(f"X: {x}, Y: {y}")
+            # print(f"X: {x}, Y: {y}")
             if (x < 100 and y < 80): 
                 # left top
                 xpos = 45
@@ -80,7 +80,7 @@ def detect_orange_ball(image):
                 xpos = 90
 
             # try:
-            
+
             #send_angle(xpos)
                 
                 #time.sleep(1)  # Give time for transmission
@@ -106,6 +106,7 @@ while True:
 
     cv2.imshow('Ball', result_image)
     send_angle(xpos)
+    time.sleep(0.01)
     # Check for user input to quit
     # if cv2.waitKey(1) & 0xFF == ord('q'):
     #     break
