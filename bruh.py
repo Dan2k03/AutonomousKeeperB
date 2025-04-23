@@ -9,13 +9,11 @@ import serial.tools.list_ports
 ser = serial.Serial('/dev/ttyACM0', 115200)
 time.sleep(2)  # Wait for Arduino to reset
 
-
 def send_angle(angle):
     if ser.is_open:
         ser.write(f"{angle}\n".encode())
         ser.flush()
         print(f"Sent angle: {angle}")
-
 
 # --- Print Available Serial Ports (debug) ---
 ports = serial.tools.list_ports.comports()
@@ -28,9 +26,13 @@ config = picam2.create_preview_configuration(main={"format": "RGB888", "size": (
 picam2.configure(config)
 picam2.start()
 
+# --- Track last angle sent ---
+current_angle = 90  # Assume starting straight ahead
 
 # --- Ball Detection Function ---
 def detect_orange_ball(image):
+    global current_angle
+
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
     # Improved orange HSV range
@@ -55,17 +57,18 @@ def detect_orange_ball(image):
             cv2.circle(image, center, 5, (0, 0, 255), -1)
 
             frame_width = image.shape[1]
-            angle = int((x / frame_width) * 180)
+            target_angle = int((x / frame_width) * 180)
 
-            print(f"Ball at X: {x}, mapped angle: {angle}")
-            try:
-                send_angle(angle)
-                time.sleep(0.1)
-            except Exception as e:
-                print(f"Error sending angle: {e}")
+            print(f"Ball at X: {x}, mapped angle: {target_angle}")
+
+            if abs(target_angle - current_angle) >= 10:
+                step = 10 if target_angle > current_angle else -10
+                for angle in range(current_angle, target_angle + step, step):
+                    send_angle(angle)
+                    time.sleep(0.05)
+                current_angle = target_angle
 
     return image
-
 
 # --- Main Loop ---
 try:
